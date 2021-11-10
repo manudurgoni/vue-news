@@ -14,7 +14,8 @@ export default {
     }
   },
   async created() {
-    this.post = await API.getArticleByID(this.$route.params.id)
+    const data = await API.getArticleByID(this.$route.params.id)
+    console.log(data)
   },
 }
 </script>

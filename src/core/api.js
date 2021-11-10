@@ -1,11 +1,21 @@
-import axios from 'axios'
+import axios from "axios";
 
-export const getArticles = async () => {
-  const json = await axios.get('https://jsonplaceholder.typicode.com/posts')
-  return json.data
-}
+const TOKEN = process.env. API_TOKEN
+export const getArticles = async ({
+  limit = 15,
+  page = 0
+}) => {
+  const json = await axios.get(`https://dummyapi.io/data/v1/post?limit=${limit}&page=${page}`, {
+    headers: {
+      'app-id': TOKEN
+    }
+  });
+  return { ...json.data };
+};
 
 export const getArticleByID = async (id) => {
-  const json = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-  return json.data
-}
+  const json = await axios.get(
+    `https://jsonplaceholder.typicode.com/posts/${id}`
+  );
+  return json.data;
+};

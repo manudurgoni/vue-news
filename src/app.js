@@ -10,4 +10,4 @@ new Vue({
   }
 }).$mount('#news')
 
-console.log('APP: init')
+console.log(process.env.API_TOKEN)

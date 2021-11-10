@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html --open",
+    "start": "parcel index.html --open --no-cache",
     "build": "parcel build index.html"
   },
   "author": "",
@@ -20,5 +20,7 @@
     "@vue/component-compiler-utils": "^3.3.0",
     "vue-template-compiler": "^2.6.14"
   },
-  "browserslist": [ "last 2 Chrome versions" ]
+  "browserslist": [
+    "last 2 Chrome versions"
+  ]
 }
