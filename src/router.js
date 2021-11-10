@@ -16,9 +16,14 @@ const routes = [
     path: "/about",
     component: About,
   },
+  {
+    path: "/news/:id",
+    component: Single,
+  },
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
 
