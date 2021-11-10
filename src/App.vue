@@ -3,6 +3,7 @@
     <nav class="menu m-8">
       <router-link class="underline text-xl ml-4" to="/">Home</router-link>
       <router-link class="underline text-xl ml-4" to="/about">About</router-link>
+      <router-link class="underline text-xl ml-4" to="/news/1234">News 1234</router-link>
     </nav>
   
     <router-view></router-view>

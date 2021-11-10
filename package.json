@@ -19,5 +19,6 @@
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.3.0",
     "vue-template-compiler": "^2.6.14"
-  }
+  },
+  "browserslist": [ "last 2 Chrome versions" ]
 }
