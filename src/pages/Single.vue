@@ -1,6 +1,6 @@
 <template>
   <div class="single">
-    <h1>Single page {{ $route.params.id }}</h1>
+    <pre class="whitespace-pre-wrap">{{ post }}</pre>
   </div>
 </template>
 
@@ -8,11 +8,13 @@
 import * as API from '../core/api'
 export default {
   name: 'Single',
-  created() {
-    API.getArticleByID(this.$route.params.id)
+  data() {
+    return {
+      post: null
+    }
   },
-  mounted() {
-    //console.log(this.$route)
-  }
+  async created() {
+    this.post = await API.getArticleByID(this.$route.params.id)
+  },
 }
 </script>
