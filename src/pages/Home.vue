@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import * as API from '../core/api'
 export default {
-  name: 'Home'
+  name: 'Home',
+  created() {
+    API.getArticles()
+  }
 }
 </script>

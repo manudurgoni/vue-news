@@ -5,10 +5,14 @@
 </template>
 
 <script>
+import * as API from '../core/api'
 export default {
   name: 'Single',
+  created() {
+    API.getArticleByID(this.$route.params.id)
+  },
   mounted() {
-    console.log(this.$route)
+    //console.log(this.$route)
   }
 }
 </script>
