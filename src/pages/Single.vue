@@ -25,7 +25,7 @@ export default {
 
     setTimeout(() => {
       this.post = { ...data }
-    }, 1000)
+    }, 500)
   },
 }
 </script>
