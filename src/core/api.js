@@ -15,7 +15,12 @@ export const getArticles = async ({
 
 export const getArticleByID = async (id) => {
   const json = await axios.get(
-    `https://jsonplaceholder.typicode.com/posts/${id}`
+    `https://dummyapi.io/data/v1/post/${id}`,
+    {
+      headers: {
+        'app-id': TOKEN
+      }
+    }
   );
-  return json.data;
+  return { ...json.data };
 };

@@ -1,6 +1,12 @@
 <template>
   <div class="single">
-    <pre class="whitespace-pre-wrap">{{ post }}</pre>
+    <transition name="fade">
+      <img v-if="!post" class="loader" src="../assets/loader.gif" alt="">
+
+      <div v-else class="single__content">
+        <img :src="post.image" class="custom-img" alt="">
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -15,7 +21,11 @@ export default {
   },
   async created() {
     const data = await API.getArticleByID(this.$route.params.id)
-    console.log(data)
+    
+
+    setTimeout(() => {
+      this.post = { ...data }
+    }, 1000)
   },
 }
 </script>
