@@ -11,5 +11,3 @@ new Vue({
     return createElement(App)
   }
 }).$mount('#news')
-
-console.log(process.env.API_TOKEN)

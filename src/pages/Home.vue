@@ -1,34 +1,39 @@
 <template>
   <div class="home">
+    <v-loader ref="loader" :auto-hide="false"></v-loader>
 
-    <img v-if="posts.length < 1" class="loader" src="../assets/loader.gif" alt="">
-
-    <div v-else class="home__content">
+    <div class="home__content">
       <!-- <h1 class="text-3xl">{{ loadedRounded }}%</h1> -->
       <div class="home__grid">
-        <router-link class="item  text-lg" v-for="post in posts" :key="post.id" :to="`/news/${post.id}`">
-          <img :src="post.image" alt="">
+        <router-link
+          @mouseenter.native="onMouseEnter"
+          @mouseleave.native="onMouseLeave"
+          class="item text-lg"
+          v-for="post in posts"
+          :key="post.id"
+          :to="`/news/${post.id}`"
+        >
+          <img :src="post.image" alt />
         </router-link>
       </div>
       <!-- <button class="text-white bg-gray-800 p-4 my-10" @click="showMore" v-if="!isLast">Voir plus</button> -->
     </div>
-    
   </div>
 </template>
 
 <script>
 import anime from 'animejs'
-
 import * as API from '../core/api'
 export default {
   name: 'Home',
   data() {
     return {
       posts: [],
-      limit: 10,
+      limit: 9,
       page: 0,
       total: 0,
-      loaded: 0
+      loaded: 0,
+      timeline: null
     }
   },
 
@@ -39,7 +44,6 @@ export default {
 
     isLast() {
       const lastPage = Math.round(this.total / this.limit)
-      console.log(lastPage, this.page)
       return this.page >= lastPage
     }
   },
@@ -53,14 +57,16 @@ export default {
   },
 
   async created() {
-    this.getData()
+    await this.getData()
+
+    this.$refs.loader.loaderCompleted()
   },
 
   mounted() {
-    
   },
 
   methods: {
+
     showMore() {
       this.page++
       this.getData()
@@ -76,18 +82,57 @@ export default {
           start: 1000
         }),
         easing: 'easeOutExpo',
-        translateY: [200, 0],
+        translateY: [100, 0],
         opacity: [0, 1]
       })
 
-      // anime({
-      //   targets: this,
-      //   loaded: 100,
-      //   duration: 3000,
-      //   easing: 'linear'
-      // })
+    },
 
-      console.log(items)
+    onMouseEnter(e) {
+      const currentItem = e.target
+      currentItem.style.zIndex = 1
+      anime({
+        targets: currentItem,
+        scale: 0.95,
+        easing: 'easeOutExpo',
+      })
+
+      const items = Array.from(this.$el.querySelectorAll('.item'))
+      const currentItemIndex = items.indexOf(currentItem)
+      items.splice(currentItemIndex, 1)
+      anime({
+        targets: items,
+        scale: [1, 0.8],
+        opacity: 0.8,
+        // rotate: (item, index, total) => {
+        //   const mult = Math.random() > 0.5 ? 1:-1
+        //   return Math.random() * 180 * mult
+        // },
+        easing: 'easeOutExpo',
+      })
+    },
+
+    onMouseLeave(e) {
+      const currentItem = e.target
+      currentItem.style.zIndex = 0
+      anime({
+        targets: currentItem,
+        scale: 1,
+        zIndex: 0,
+        rotate: 0,
+        opacity: 1,
+      })
+
+      const items = Array.from(this.$el.querySelectorAll('.item'))
+      const currentItemIndex = items.indexOf(currentItem)
+      items.splice(currentItemIndex, 1)
+      anime({
+        targets: items,
+        scale: 1,
+        rotate: 0,
+        opacity: 1,
+        easing: 'easeOutExpo',
+      })
     },
 
     async getData() {
@@ -111,7 +156,6 @@ export default {
 .home__grid {
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
   /* flex-wrap: ; */
 }
 
@@ -122,7 +166,7 @@ export default {
 
 .home__grid .item::before {
   display: block;
-  content: '';
+  content: "";
   padding-top: 100%;
 }
 .home__grid .item img {

@@ -1,12 +1,10 @@
 <template>
   <div class="single">
-    <transition name="fade">
-      <img v-if="!post" class="loader" src="../assets/loader.gif" alt="">
+    <v-loader ref="loader" :auto-hide="false"></v-loader>
 
-      <div v-else class="single__content">
-        <img :src="post.image" class="custom-img" alt="">
-      </div>
-    </transition>
+    <div v-if="post" class="single__content">
+      <img :src="post.image" class="custom-img" alt="">
+    </div>
   </div>
 </template>
 
@@ -25,6 +23,8 @@ export default {
 
     setTimeout(() => {
       this.post = { ...data }
+
+      this.$refs.loader.loaderCompleted()
     }, 500)
   },
 }
