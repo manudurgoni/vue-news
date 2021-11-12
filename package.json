@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html --open --no-cache",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html && npm run copy",
+    "copy": "cp public/.htaccess dist"
   },
   "author": "",
   "license": "ISC",
