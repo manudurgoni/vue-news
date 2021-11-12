@@ -5,7 +5,11 @@
       <img v-if="posts.length < 1" class="loader" src="../assets/loader.gif" alt="">
 
       <div v-else class="home__content">
-        <router-link class="block my-6 text-lg" v-for="post in posts" :key="post.id" :to="`/news/${post.id}`">{{ post.text}}</router-link>
+        <div class="home__grid">
+          <router-link class="item  text-lg" v-for="post in posts" :key="post.id" :to="`/news/${post.id}`">
+            <img :src="post.image" alt="">
+          </router-link>
+        </div>
         <button class="text-white bg-gray-800 p-4 my-10" @click="showMore" v-if="!isLast">Voir plus</button>
       </div>
     </transition>
@@ -56,3 +60,34 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.home {
+  position: relative;
+}
+
+.home__grid {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-wrap: ; */
+}
+
+.home__grid .item {
+  width: 33.3333%;
+  position: relative;
+}
+
+.home__grid .item::before {
+  display: block;
+  content: '';
+  padding-top: 100%;
+}
+.home__grid .item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+</style>
